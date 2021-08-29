@@ -27,13 +27,13 @@ export function areEqual(a, b) {
 }
 
 export function isLeapYear(year) {
-  return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+  return !(year % 4 || (!(year % 100) && year % 400));
 }
 
 export function getDaysInMonth(date) {
   const month = date.getMonth();
   const year = date.getFullYear();
-  const daysInMonth = DAYS_IN_MONTH[month];
+  let daysInMonth = DAYS_IN_MONTH[month];
 
   if (isLeapYear(year && month === Month.February)) {
     return daysInMonth + 1;
@@ -48,18 +48,30 @@ export function getMonthData(year, month) {
   const daysInMonth = getDaysInMonth(date);
   const monthStartsOn = date.getDay();
   let day = 1;
+  let prevMonthDays = new Date((year, month, day) - monthStartsOn);
 
   for (let i = 0; i < (daysInMonth + monthStartsOn) / DAYS_IN_WEEK; i++) {
     result[i] = [];
 
     for (let j = 0; j < DAYS_IN_WEEK; j++) {
-      if ((i === 0 && j < monthStartsOn) || day > daysInMonth) {
-        result[i][j] = undefined;
+      if (i === 0 && j < monthStartsOn) {
+        result[i][j] = {
+          date: new Date(year, month, prevMonthDays++),
+          className: 'day prevMonth',
+        };
+      } else if (day < daysInMonth) {
+        // console.log(day);
+        result[i][j] = {
+          date: new Date(year, month, day++),
+          className: 'day currentMonth',
+        };
       } else {
-        result[i][j] = new Date(year, month, day++);
+        result[i][j] = {
+          date: new Date(year, month, day++),
+          className: 'day nextMonth',
+        };
       }
     }
   }
-  console.log(result);
   return result;
 }

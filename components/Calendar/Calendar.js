@@ -3,20 +3,15 @@ import classNames from 'classnames';
 
 import * as calendarLogic from './calendarLogic';
 
+import s from './Calendar.module.scss';
+
 export default function Calendar() {
   const [currentDay, setCurrentDay] = useState(new Date());
+  const [today, setToday] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
-  function generate_year_range(start, end) {
-    const years = [];
-    for (let year = start; year <= end; year++) {
-      years.push(year);
-    }
-    return years;
-  }
 
   const currentMonth = currentDay.getMonth();
   const currentYear = currentDay.getFullYear();
-  const yearsRange = generate_year_range(2021, 2050);
 
   const months = [
     'January',
@@ -68,19 +63,20 @@ export default function Calendar() {
           <tbody>
             {monthData.map((week, index) => (
               <tr key={index}>
-                {week.map((date, index) =>
+                {week.map(({ date, className }, index) =>
                   date ? (
                     <td
                       onClick={() => handleSelectedDayClick(date)}
                       key={index}
-                      className={classNames('day', {
-                        today: calendarLogic.areEqual(date, currentDay),
+                      className={classNames(className, {
+                        today: calendarLogic.areEqual(date, today),
+                        selected: calendarLogic.areEqual(date, selectedDate),
                       })}
                     >
                       {date.getDate()}
                     </td>
                   ) : (
-                    <td key={index}></td>
+                    <td key={index} className={className}></td>
                   ),
                 )}
               </tr>
@@ -93,6 +89,19 @@ export default function Calendar() {
           </tbody>
         </table>
       </div>
+      <style jsx>
+        {`
+          .day {
+            padding: 5px;
+          }
+          .day.today {
+            color: green;
+          }
+          .day.selected {
+            color: red;
+          }
+        `}
+      </style>
     </>
   );
 }
