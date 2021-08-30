@@ -1,14 +1,23 @@
 import { useState } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import classNames from 'classnames';
 
+import * as actions from '../../redux/actions';
+
 import * as calendarLogic from './calendarLogic';
+import Modal from '../Modal';
 
 import s from './Calendar.module.scss';
 
-export default function Calendar() {
+function Calendar({ onChoseDate, isSelectedDate }) {
   const [currentDay, setCurrentDay] = useState(new Date());
   const [today, setToday] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  function toggle() {
+    setIsShowModal(!isShowModal);
+  }
 
   const currentMonth = currentDay.getMonth();
   const currentYear = currentDay.getFullYear();
@@ -44,13 +53,13 @@ export default function Calendar() {
 
   const handleSelectedDayClick = date => {
     setSelectedDate(date);
+    setIsShowModal(true);
   };
 
   return (
     <>
       <div>
         <h3>Calendar</h3>
-
         <div>
           <button onClick={handlePrevMonthButtonClick}>&#8249;</button>
           <p>
@@ -58,7 +67,6 @@ export default function Calendar() {
           </p>
           <button onClick={handleNextMonthButtonClick}>&#8250;</button>
         </div>
-
         <table>
           <tbody>
             {monthData.map((week, index) => (
@@ -66,7 +74,13 @@ export default function Calendar() {
                 {week.map(({ date, className }, index) =>
                   date ? (
                     <td
-                      onClick={() => handleSelectedDayClick(date)}
+                      onClick={() => {
+                        onChoseDate(date);
+                        handleSelectedDayClick(date);
+                      }}
+                      // onClick={() => {
+                      //   handleSelectedDayClick(date);
+                      // }}
                       key={index}
                       className={classNames(className, {
                         today: calendarLogic.areEqual(date, today),
@@ -88,6 +102,11 @@ export default function Calendar() {
             </tr>
           </tbody>
         </table>
+        <Modal
+          selectedDate={selectedDate}
+          isShowModal={isShowModal}
+          hide={toggle}
+        />
       </div>
       <style jsx>
         {`
@@ -105,3 +124,17 @@ export default function Calendar() {
     </>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    value: state.isSelectedDate,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChoseDate: value => dispatch(actions.choseDate(value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

@@ -1,14 +1,27 @@
-// import { useState } from "react";
+// import { useSelector, useDispatch } from 'react-redux';
 
-export default function Modal({ date }) {
-  console.log(date);
-  return (
+// const useDate = () => {
+//   const date = useSelector(state => state.date);
+//   const dispatch = useDispatch();
+//   const selectDate = () =>
+//     dispatch({
+//       type: 'SELECT_DATE',
+//     });
+
+//   return { date, selectDate };
+// };
+
+const Modal = ({ selectedDate, isShowModal, hide }) =>
+  isShowModal ? (
     <>
-      <button>Close Modal</button>
+      <button onClick={hide}>Close Modal</button>
       <form>
         <label>
-          {date}
-          <input type="text" name="month" />
+          <input
+            placeholder={selectedDate && selectedDate.toLocaleDateString()}
+            type="text"
+            name="month"
+          />
         </label>
         <label>
           Day
@@ -16,5 +29,6 @@ export default function Modal({ date }) {
         </label>
       </form>
     </>
-  );
-}
+  ) : null;
+
+export default Modal;

@@ -20,6 +20,7 @@ export default function Home() {
       </p>
 
       <Calendar />
+      {/* <Modal /> */}
     </MainLayout>
   );
 }
