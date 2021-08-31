@@ -1,5 +1,7 @@
 import Head from 'next/head';
+import Logo from './Logo';
 import Navigation from './Navigation';
+import s from './MainLayout.module.scss';
 
 export function MainLayout({ children, title = ' WeRDevs' }) {
   return (
@@ -11,7 +13,10 @@ export function MainLayout({ children, title = ' WeRDevs' }) {
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navigation />
+      <header className={s.header}>
+        <Logo />
+        <Navigation />
+      </header>
       <main>{children}</main>
     </>
   );

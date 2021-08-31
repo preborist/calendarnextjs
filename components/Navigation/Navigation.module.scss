@@ -1,6 +1,18 @@
 .navigation {
-  height: 40px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  flex-wrap: wrap;
+  max-width: 295px;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.link:not(:last-child) {
+  margin-right: 70px;
+  @media screen and(max-width: 576px) {
+    max-width: 100%;
+    margin-right: 15px;
+  }
 }

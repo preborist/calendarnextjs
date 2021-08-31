@@ -5,9 +5,9 @@ export default function Navigation() {
   return (
     <nav className={s.navigation}>
       <Link href="/">
-        <a>HOME</a>
+        <a className={s.link}>HOME</a>
       </Link>
-      <Link href="/about">
+      <Link className={s.link} href="/about">
         <a>ABOUT US</a>
       </Link>
     </nav>

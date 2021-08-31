@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
+
 import classNames from 'classnames';
 
 import * as actions from '../../redux/actions';
@@ -9,7 +10,7 @@ import Modal from '../Modal';
 
 import s from './Calendar.module.scss';
 
-function Calendar({ onChoseDate, isSelectedDate }) {
+function Calendar({ onChoseDate }) {
   const [currentDay, setCurrentDay] = useState(new Date());
   const [today, setToday] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -58,19 +59,23 @@ function Calendar({ onChoseDate, isSelectedDate }) {
 
   return (
     <>
-      <div>
-        <h3>Calendar</h3>
-        <div>
-          <button onClick={handlePrevMonthButtonClick}>&#8249;</button>
-          <p>
+      <div className={s.calendar__wrapper}>
+        <h3 hidden>Calendar</h3>
+        <div className={s.calendar__nav}>
+          <button className={s.nav__btn} onClick={handlePrevMonthButtonClick}>
+            &#8249;
+          </button>
+          <p className={s.nav__title}>
             {months[currentMonth]} {currentYear}
           </p>
-          <button onClick={handleNextMonthButtonClick}>&#8250;</button>
+          <button className={s.nav__btn} onClick={handleNextMonthButtonClick}>
+            &#8250;
+          </button>
         </div>
-        <table>
-          <tbody>
+        <table className={s.table}>
+          <tbody className={s.tbody}>
             {monthData.map((week, index) => (
-              <tr key={index}>
+              <tr className={s.tr} key={index}>
                 {week.map(({ date, className }, index) =>
                   date ? (
                     <td
@@ -78,16 +83,13 @@ function Calendar({ onChoseDate, isSelectedDate }) {
                         onChoseDate(date);
                         handleSelectedDayClick(date);
                       }}
-                      // onClick={() => {
-                      //   handleSelectedDayClick(date);
-                      // }}
                       key={index}
                       className={classNames(className, {
                         today: calendarLogic.areEqual(date, today),
                         selected: calendarLogic.areEqual(date, selectedDate),
                       })}
                     >
-                      {date.getDate()}
+                      {('0' + date.getDate()).slice(-2)}
                     </td>
                   ) : (
                     <td key={index} className={className}></td>
@@ -95,9 +97,11 @@ function Calendar({ onChoseDate, isSelectedDate }) {
                 )}
               </tr>
             ))}
-            <tr>
+            <tr className={s.days__wrapper}>
               {days.map(day => (
-                <th key={day}>{day.slice(0, 1)}</th>
+                <th className={s.days} key={day}>
+                  {day.slice(0, 1)}
+                </th>
               ))}
             </tr>
           </tbody>
@@ -111,13 +115,37 @@ function Calendar({ onChoseDate, isSelectedDate }) {
       <style jsx>
         {`
           .day {
-            padding: 5px;
+            padding: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #dfdfdf;
           }
+
           .day.today {
-            color: green;
+            position: relative;
+            color: #3d3d3d;
+            background-color: #fdd000;
           }
+
           .day.selected {
-            color: red;
+            position: relative;
+            display: flex;
+            color: #fdd000;
+          }
+          .day.selected::after {
+            content: '';
+            position: absolute;
+            left: 33px;
+            bottom: 15px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #fdd000;
+          }
+
+          .day.nextMonth,
+          .day.prevMonth {
+            opacity: 0.24;
           }
         `}
       </style>
