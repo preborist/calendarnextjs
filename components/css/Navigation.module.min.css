@@ -1,0 +1,2 @@
+.navigation{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;margin-bottom:5px;margin-left:10px;-ms-flex-wrap:wrap;flex-wrap:wrap;max-width:295px;font-size:28px;font-weight:500}@media screen and (max-width: 576px){.navigation{margin-left:0}}.link:not(:last-child){margin-right:70px}@media screen and (max-width: 576px){.link:not(:last-child){max-width:100%;margin-right:15px}}
+/*# sourceMappingURL=Navigation.module.min.css.map */

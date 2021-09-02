@@ -32,12 +32,12 @@
   max-width: 510px;
   padding: 25px;
   box-shadow: 10px 10px 20px #131819ad;
-}
 
-// .modal__header {
-//   display: flex;
-//   justify-content: flex-end;
-// }
+  @media screen and(max-width: 576px) {
+    max-width: 300px;
+    padding: 10px;
+  }
+}
 
 .modal__closeButton {
   position: absolute;
@@ -52,15 +52,6 @@
   border: none;
 }
 
-// .button {
-//   font-size: 0.9rem;
-//   font-weight: 700;
-//   border: none;
-//   border-radius: 3px;
-//   padding: 0.3rem 1rem;
-//   margin-left: 0.5rem;
-// }
-
 .button-default {
   background: #247ba0;
   color: #fff;
@@ -73,6 +64,10 @@
 .label {
   font-size: 20px;
   color: #a2a2a2;
+
+  @media screen and(max-width: 576px) {
+    font-size: 16px;
+  }
 }
 
 .input {
@@ -83,7 +78,16 @@
   padding-left: 20px;
   padding-right: 20px;
   font-size: 22px;
-  color: #3d3d3d;
+
+  &::placeholder {
+    color: #272829;
+  }
+
   box-shadow: 0px 0px 25px #0000000d;
   border: 2px solid #fdd000;
+
+  @media screen and(max-width: 576px) {
+    width: 135px;
+    font-size: 16px;
+  }
 }

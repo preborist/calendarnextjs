@@ -1,10 +1,28 @@
 .calendar__wrapper {
+  display: block;
+  margin-left: auto;
+
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
   color: #dfdfdf;
-  padding-top: 209px;
-  padding-bottom: 209px;
-  padding-left: 122px;
-  padding-right: 105px;
+
   background-color: #272829;
+
+  @media screen and(max-width: 576px) {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  @media screen and(min-width: 1024px) {
+    padding-top: 209px;
+    padding-bottom: 209px;
+    padding-left: 122px;
+    padding-right: 105px;
+  }
 }
 
 .calendar__nav {
@@ -43,4 +61,7 @@
   color: #dfdfdf;
   border-top: 1px solid hsla(0, 0%, 100%, 0.43);
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.43);
+  @media screen and(max-width: 576px) {
+    padding: 10px;
+  }
 }

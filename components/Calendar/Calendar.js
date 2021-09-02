@@ -120,6 +120,19 @@ function Calendar({ onChoseDate }) {
             font-size: 16px;
             color: #dfdfdf;
           }
+          .day:hover,
+          .day:focus {
+            color: #fdd000;
+            opacity: 0.5;
+          }
+
+          @media screen and (max-width: 576px) {
+            .day {
+              padding: 10px;
+              cursor: pointer;
+              font-size: 14px;
+            }
+          }
 
           .day.today {
             position: relative;
@@ -132,6 +145,7 @@ function Calendar({ onChoseDate }) {
             display: flex;
             color: #fdd000;
           }
+
           .day.selected::after {
             content: '';
             position: absolute;
@@ -141,6 +155,13 @@ function Calendar({ onChoseDate }) {
             height: 5px;
             border-radius: 50%;
             background-color: #fdd000;
+          }
+
+          @media screen and (max-width: 576px) {
+            .day.selected::after {
+              left: 17px;
+              bottom: 0;
+            }
           }
 
           .day.nextMonth,

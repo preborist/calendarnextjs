@@ -5,6 +5,11 @@
   margin-left: auto;
   margin-right: 33px;
   padding-top: 192px;
+  @media screen and(max-width: 576px) {
+    padding-top: 25px;
+    height: auto;
+    padding-bottom: 25px;
+  }
 }
 
 .title {
@@ -14,6 +19,11 @@
   color: #fdd000;
   text-transform: uppercase;
   margin-bottom: 44px;
+  @media screen and(max-width: 576px) {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 25px;
+  }
 }
 
 .description {
@@ -22,4 +32,8 @@
   line-height: 40px;
   font-weight: 300;
   color: #dfdfdf;
+  @media screen and(max-width: 576px) {
+    font-size: 22px;
+    line-height: 32px;
+  }
 }

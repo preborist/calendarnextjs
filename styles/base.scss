@@ -3,6 +3,11 @@
 }
 
 .section {
+  display: flex;
+  @media screen and(max-width: 1023px) {
+    flex-wrap: wrap;
+  }
+
   background: url(../images/ibg.png) top left no-repeat;
   background-size: cover;
 }
